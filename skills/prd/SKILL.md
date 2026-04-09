@@ -1,241 +1,241 @@
 ---
 name: prd
-description: "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan this feature, requirements for, spec out."
+description: "为新功能生成产品需求文档（PRD）。适用于规划功能、启动新项目，或用户要求创建 PRD 的场景。触发词包括：create a prd、write prd for、plan this feature、requirements for、spec out。"
 user-invocable: true
 ---
 
-# PRD Generator
+# PRD 生成器
 
-Create detailed Product Requirements Documents that are clear, actionable, and suitable for implementation.
-
----
-
-## The Job
-
-1. Receive a feature description from the user
-2. Ask 3-5 essential clarifying questions (with lettered options)
-3. Generate a structured PRD based on answers
-4. Save to `tasks/prd-[feature-name].md`
-
-**Important:** Do NOT start implementing. Just create the PRD.
+创建详细、清晰、可执行且适合落地实现的产品需求文档。
 
 ---
 
-## Step 1: Clarifying Questions
+## 任务目标
 
-Ask only critical questions where the initial prompt is ambiguous. Focus on:
+1. 接收用户提供的功能描述
+2. 提出 3 到 5 个关键澄清问题（带字母选项）
+3. 根据回答生成结构化 PRD
+4. 保存到 `tasks/prd-[feature-name].md`
 
-- **Problem/Goal:** What problem does this solve?
-- **Core Functionality:** What are the key actions?
-- **Scope/Boundaries:** What should it NOT do?
-- **Success Criteria:** How do we know it's done?
+**重要：** 不要开始实现。这里只负责创建 PRD。
 
-### Format Questions Like This:
+---
+
+## 第一步：澄清问题
+
+只在用户初始描述存在歧义时提出关键问题。重点关注：
+
+- **问题 / 目标：** 这个功能要解决什么问题？
+- **核心功能：** 关键操作有哪些？
+- **范围 / 边界：** 它不应该做什么？
+- **成功标准：** 怎样才算完成？
+
+### 问题格式示例
 
 ```
-1. What is the primary goal of this feature?
-   A. Improve user onboarding experience
-   B. Increase user retention
-   C. Reduce support burden
-   D. Other: [please specify]
+1. 这个功能的主要目标是什么？
+   A. 改善新用户上手体验
+   B. 提升用户留存
+   C. 降低支持成本
+   D. 其他：[请说明]
 
-2. Who is the target user?
-   A. New users only
-   B. Existing users only
-   C. All users
-   D. Admin users only
+2. 目标用户是谁？
+   A. 仅新用户
+   B. 仅现有用户
+   C. 所有用户
+   D. 仅管理员
 
-3. What is the scope?
-   A. Minimal viable version
-   B. Full-featured implementation
-   C. Just the backend/API
-   D. Just the UI
+3. 功能范围是什么？
+   A. 最小可用版本
+   B. 完整功能版本
+   C. 仅后端 / API
+   D. 仅 UI
 ```
 
-This lets users respond with "1A, 2C, 3B" for quick iteration. Remember to indent the options.
+这样用户就可以直接用 “1A, 2C, 3B” 这种形式快速回复。记得让选项保持缩进。
 
 ---
 
-## Step 2: PRD Structure
+## 第二步：PRD 结构
 
-Generate the PRD with these sections:
+生成的 PRD 需要包含以下部分：
 
-### 1. Introduction/Overview
-Brief description of the feature and the problem it solves.
+### 1. 介绍 / 概览
+简要描述该功能及其要解决的问题。
 
-### 2. Goals
-Specific, measurable objectives (bullet list).
+### 2. 目标
+明确且可衡量的目标（使用列表）。
 
 ### 3. User Stories
-Each story needs:
-- **Title:** Short descriptive name
-- **Description:** "As a [user], I want [feature] so that [benefit]"
-- **Acceptance Criteria:** Verifiable checklist of what "done" means
+每条 story 都需要包含：
+- **Title：** 简短且有说明性的名称
+- **Description：** “作为 [user]，我希望 [feature]，以便 [benefit]”
+- **Acceptance Criteria：** 可验证的完成标准清单
 
-Each story should be small enough to implement in one focused session.
+每条 story 都应足够小，能够在一次聚焦实现中完成。
 
-**Format:**
+**格式如下：**
 ```markdown
 ### US-001: [Title]
-**Description:** As a [user], I want [feature] so that [benefit].
+**Description:** 作为 [user]，我希望 [feature]，以便 [benefit]。
 
 **Acceptance Criteria:**
-- [ ] Specific verifiable criterion
-- [ ] Another criterion
-- [ ] Typecheck/lint passes
-- [ ] **[UI stories only]** Verify in browser using dev-browser skill
+- [ ] 明确且可验证的标准
+- [ ] 另一条标准
+- [ ] Typecheck / lint 通过
+- [ ] **[仅限 UI story]** 使用 dev-browser skill 在浏览器中验证
 ```
 
-**Important:** 
-- Acceptance criteria must be verifiable, not vague. "Works correctly" is bad. "Button shows confirmation dialog before deleting" is good.
-- **For any story with UI changes:** Always include "Verify in browser using dev-browser skill" as acceptance criteria. This ensures visual verification of frontend work.
+**重要：**
+- 验收标准必须可验证，不能含糊。“Works correctly” 这种表述不行；“删除前按钮会弹出确认框” 这种表述才合格。
+- **只要 story 涉及 UI 变更：** 验收标准中必须包含 “Verify in browser using dev-browser skill”，确保前端改动经过实际视觉验证。
 
-### 4. Functional Requirements
-Numbered list of specific functionalities:
-- "FR-1: The system must allow users to..."
-- "FR-2: When a user clicks X, the system must..."
+### 4. 功能需求
+用编号列出明确的功能要求：
+- “FR-1: 系统必须允许用户……”
+- “FR-2: 当用户点击 X 时，系统必须……”
 
-Be explicit and unambiguous.
+要求必须明确、无歧义。
 
-### 5. Non-Goals (Out of Scope)
-What this feature will NOT include. Critical for managing scope.
+### 5. 非目标（范围外内容）
+明确这个功能 **不包括** 什么。这对控制范围很关键。
 
-### 6. Design Considerations (Optional)
-- UI/UX requirements
-- Link to mockups if available
-- Relevant existing components to reuse
+### 6. 设计考虑（可选）
+- UI / UX 要求
+- 如果有原型图，附上链接
+- 可复用的现有组件
 
-### 7. Technical Considerations (Optional)
-- Known constraints or dependencies
-- Integration points with existing systems
-- Performance requirements
+### 7. 技术考虑（可选）
+- 已知约束或依赖
+- 与现有系统的集成点
+- 性能要求
 
-### 8. Success Metrics
-How will success be measured?
-- "Reduce time to complete X by 50%"
-- "Increase conversion rate by 10%"
+### 8. 成功指标
+如何衡量是否成功？
+- “完成 X 所需时间减少 50%”
+- “转化率提升 10%”
 
-### 9. Open Questions
-Remaining questions or areas needing clarification.
+### 9. 开放问题
+仍待澄清的问题或尚未明确的部分。
 
 ---
 
-## Writing for Junior Developers
+## 面向初级开发者写作
 
-The PRD reader may be a junior developer or AI agent. Therefore:
+PRD 的读者可能是初级开发者，也可能是 AI 代理。因此：
 
-- Be explicit and unambiguous
-- Avoid jargon or explain it
-- Provide enough detail to understand purpose and core logic
-- Number requirements for easy reference
-- Use concrete examples where helpful
+- 要写得明确、无歧义
+- 尽量避免术语，或在使用时解释清楚
+- 提供足够细节，帮助读者理解目的和核心逻辑
+- 功能需求要编号，便于引用
+- 适当使用具体示例帮助理解
 
 ---
 
 ## Output
 
-- **Format:** Markdown (`.md`)
-- **Location:** `tasks/`
-- **Filename:** `prd-[feature-name].md` (kebab-case)
+- **格式：** Markdown（`.md`）
+- **位置：** `tasks/`
+- **文件名：** `prd-[feature-name].md`（kebab-case）
 
 ---
 
-## Example PRD
+## PRD 示例
 
 ```markdown
-# PRD: Task Priority System
+# PRD：任务优先级系统
 
-## Introduction
+## 介绍
 
-Add priority levels to tasks so users can focus on what matters most. Tasks can be marked as high, medium, or low priority, with visual indicators and filtering to help users manage their workload effectively.
+为任务增加优先级等级，让用户能聚焦最重要的事项。任务可标记为高、中、低优先级，并通过视觉标识和筛选能力帮助用户更高效地管理工作负载。
 
-## Goals
+## 目标
 
-- Allow assigning priority (high/medium/low) to any task
-- Provide clear visual differentiation between priority levels
-- Enable filtering and sorting by priority
-- Default new tasks to medium priority
+- 允许为任意任务设置优先级（high / medium / low）
+- 提供清晰的视觉区分
+- 支持按优先级筛选和排序
+- 新任务默认优先级为 medium
 
 ## User Stories
 
-### US-001: Add priority field to database
-**Description:** As a developer, I need to store task priority so it persists across sessions.
+### US-001: 为数据库添加优先级字段
+**Description:** 作为开发者，我需要存储任务优先级，以便它能在不同会话之间持久保留。
 
 **Acceptance Criteria:**
-- [ ] Add priority column to tasks table: 'high' | 'medium' | 'low' (default 'medium')
-- [ ] Generate and run migration successfully
-- [ ] Typecheck passes
+- [ ] 在 tasks 表中添加 priority 字段：'high' | 'medium' | 'low'（默认值为 'medium'）
+- [ ] 成功生成并运行 migration
+- [ ] Typecheck 通过
 
-### US-002: Display priority indicator on task cards
-**Description:** As a user, I want to see task priority at a glance so I know what needs attention first.
-
-**Acceptance Criteria:**
-- [ ] Each task card shows colored priority badge (red=high, yellow=medium, gray=low)
-- [ ] Priority visible without hovering or clicking
-- [ ] Typecheck passes
-- [ ] Verify in browser using dev-browser skill
-
-### US-003: Add priority selector to task edit
-**Description:** As a user, I want to change a task's priority when editing it.
+### US-002: 在任务卡片上显示优先级标识
+**Description:** 作为用户，我希望一眼就能看到任务优先级，从而知道什么最需要优先处理。
 
 **Acceptance Criteria:**
-- [ ] Priority dropdown in task edit modal
-- [ ] Shows current priority as selected
-- [ ] Saves immediately on selection change
-- [ ] Typecheck passes
-- [ ] Verify in browser using dev-browser skill
+- [ ] 每张任务卡片显示带颜色的优先级徽章（red=high，yellow=medium，gray=low）
+- [ ] 无需悬停或点击即可看到优先级
+- [ ] Typecheck 通过
+- [ ] 使用 dev-browser skill 在浏览器中验证
 
-### US-004: Filter tasks by priority
-**Description:** As a user, I want to filter the task list to see only high-priority items when I'm focused.
+### US-003: 在任务编辑中添加优先级选择器
+**Description:** 作为用户，我希望在编辑任务时能够修改任务优先级。
 
 **Acceptance Criteria:**
-- [ ] Filter dropdown with options: All | High | Medium | Low
-- [ ] Filter persists in URL params
-- [ ] Empty state message when no tasks match filter
-- [ ] Typecheck passes
-- [ ] Verify in browser using dev-browser skill
+- [ ] 在任务编辑弹窗中提供优先级下拉框
+- [ ] 当前优先级应默认处于选中状态
+- [ ] 选择变更后立即保存
+- [ ] Typecheck 通过
+- [ ] 使用 dev-browser skill 在浏览器中验证
 
-## Functional Requirements
+### US-004: 按优先级筛选任务
+**Description:** 作为用户，我希望在专注工作时可以筛选任务列表，只看高优先级任务。
 
-- FR-1: Add `priority` field to tasks table ('high' | 'medium' | 'low', default 'medium')
-- FR-2: Display colored priority badge on each task card
-- FR-3: Include priority selector in task edit modal
-- FR-4: Add priority filter dropdown to task list header
-- FR-5: Sort by priority within each status column (high to medium to low)
+**Acceptance Criteria:**
+- [ ] 筛选下拉框提供选项：All | High | Medium | Low
+- [ ] 筛选条件持久化到 URL 参数中
+- [ ] 没有任务匹配时显示空状态提示
+- [ ] Typecheck 通过
+- [ ] 使用 dev-browser skill 在浏览器中验证
 
-## Non-Goals
+## 功能需求
 
-- No priority-based notifications or reminders
-- No automatic priority assignment based on due date
-- No priority inheritance for subtasks
+- FR-1: 在 tasks 表中增加 `priority` 字段（'high' | 'medium' | 'low'，默认 'medium'）
+- FR-2: 在每张任务卡片上显示带颜色的优先级徽章
+- FR-3: 在任务编辑弹窗中提供优先级选择器
+- FR-4: 在任务列表头部增加优先级筛选下拉框
+- FR-5: 在每个状态列内按优先级排序（high 到 medium 再到 low）
 
-## Technical Considerations
+## 非目标
 
-- Reuse existing badge component with color variants
-- Filter state managed via URL search params
-- Priority stored in database, not computed
+- 不做基于优先级的通知或提醒
+- 不根据截止日期自动分配优先级
+- 子任务不继承父任务优先级
 
-## Success Metrics
+## 技术考虑
 
-- Users can change priority in under 2 clicks
-- High-priority tasks immediately visible at top of lists
-- No regression in task list performance
+- 复用现有 badge 组件，并通过不同颜色区分
+- 筛选状态通过 URL search params 管理
+- 优先级存储在数据库中，而不是动态计算
 
-## Open Questions
+## 成功指标
 
-- Should priority affect task ordering within a column?
-- Should we add keyboard shortcuts for priority changes?
+- 用户可以在 2 次点击内完成优先级修改
+- 高优先级任务能立即显示在列表顶部
+- 任务列表性能无回退
+
+## 开放问题
+
+- 优先级是否应影响同一列内的任务排序？
+- 是否应为优先级调整增加键盘快捷键？
 ```
 
 ---
 
 ## Checklist
 
-Before saving the PRD:
+保存 PRD 之前，检查：
 
-- [ ] Asked clarifying questions with lettered options
-- [ ] Incorporated user's answers
-- [ ] User stories are small and specific
-- [ ] Functional requirements are numbered and unambiguous
-- [ ] Non-goals section defines clear boundaries
-- [ ] Saved to `tasks/prd-[feature-name].md`
+- [ ] 已提出带字母选项的澄清问题
+- [ ] 已纳入用户回答
+- [ ] User stories 足够小且足够具体
+- [ ] 功能需求已编号且无歧义
+- [ ] 非目标部分定义了清晰边界
+- [ ] 已保存到 `tasks/prd-[feature-name].md`

@@ -1,104 +1,104 @@
-# Ralph Agent Instructions
+# Ralph 代理说明
 
-You are an autonomous coding agent working on a software project.
+你是一个在软件项目中工作的自主编码代理。
 
-## Your Task
+## 你的任务
 
-1. Read the PRD at `prd.json` (in the same directory as this file)
-2. Read the progress log at `progress.txt` (check Codebase Patterns section first)
-3. Check you're on the correct branch from PRD `branchName`. If not, check it out or create from main.
-4. Pick the **highest priority** user story where `passes: false`
-5. Implement that single user story
-6. Run quality checks (e.g., typecheck, lint, test - use whatever your project requires)
-7. Update CLAUDE.md files if you discover reusable patterns (see below)
-8. If checks pass, commit ALL changes with message: `feat: [Story ID] - [Story Title]`
-9. Update the PRD to set `passes: true` for the completed story
-10. Append your progress to `progress.txt`
+1. 读取 `prd.json` 中的 PRD（与本文件位于同一目录）
+2. 读取 `progress.txt` 中的进度日志（先看 `Codebase Patterns` 部分）
+3. 检查你当前是否位于 PRD 的 `branchName` 指定分支；如果不是，就切换过去或从 `main` 创建
+4. 选择 **优先级最高** 且 `passes: false` 的 user story
+5. 只实现这一条 user story
+6. 运行质量检查（例如 typecheck、lint、test，以你的项目要求为准）
+7. 如果你发现了可复用的模式，更新相关 `CLAUDE.md` 文件（见下文）
+8. 如果检查通过，提交所有改动，提交信息格式为：`feat: [Story ID] - [Story Title]`
+9. 更新 PRD，把已完成的 story 标记为 `passes: true`
+10. 将本轮进展追加到 `progress.txt`
 
-## Progress Report Format
+## 进度报告格式
 
-APPEND to progress.txt (never replace, always append):
+将内容追加到 `progress.txt` 中（绝不要替换，只能追加）：
 ```
 ## [Date/Time] - [Story ID]
-- What was implemented
-- Files changed
-- **Learnings for future iterations:**
-  - Patterns discovered (e.g., "this codebase uses X for Y")
-  - Gotchas encountered (e.g., "don't forget to update Z when changing W")
-  - Useful context (e.g., "the evaluation panel is in component X")
+- 实现了什么
+- 修改了哪些文件
+- **给后续迭代的经验：**
+  - 发现的模式（例如：“这个代码库在 Y 场景下使用 X”）
+  - 遇到的坑（例如：“修改 W 时不要忘了同步更新 Z”）
+  - 有用的上下文（例如：“评估面板位于组件 X 中”）
 ---
 ```
 
-The learnings section is critical - it helps future iterations avoid repeating mistakes and understand the codebase better.
+经验部分非常关键，它能帮助后续迭代避免重复犯错，并更好地理解代码库。
 
-## Consolidate Patterns
+## 汇总模式
 
-If you discover a **reusable pattern** that future iterations should know, add it to the `## Codebase Patterns` section at the TOP of progress.txt (create it if it doesn't exist). This section should consolidate the most important learnings:
+如果你发现了后续迭代应该知道的 **可复用模式**，请把它加到 `progress.txt` 顶部的 `## Codebase Patterns` 部分（如果不存在就新建）。这一节应该汇总最重要的经验：
 
 ```
 ## Codebase Patterns
-- Example: Use `sql<number>` template for aggregations
-- Example: Always use `IF NOT EXISTS` for migrations
-- Example: Export types from actions.ts for UI components
+- 示例：做聚合时使用 `sql<number>` 模板
+- 示例：写 migration 时始终使用 `IF NOT EXISTS`
+- 示例：给 UI 组件从 `actions.ts` 导出类型
 ```
 
-Only add patterns that are **general and reusable**, not story-specific details.
+只添加 **通用且可复用** 的模式，不要写某个 story 专属的细节。
 
-## Update CLAUDE.md Files
+## 更新 CLAUDE.md 文件
 
-Before committing, check if any edited files have learnings worth preserving in nearby CLAUDE.md files:
+提交前，检查你修改过的文件附近是否有值得沉淀到 `CLAUDE.md` 里的经验：
 
-1. **Identify directories with edited files** - Look at which directories you modified
-2. **Check for existing CLAUDE.md** - Look for CLAUDE.md in those directories or parent directories
-3. **Add valuable learnings** - If you discovered something future developers/agents should know:
-   - API patterns or conventions specific to that module
-   - Gotchas or non-obvious requirements
-   - Dependencies between files
-   - Testing approaches for that area
-   - Configuration or environment requirements
+1. **确定被修改的目录**，看看你改了哪些目录
+2. **检查是否已有 CLAUDE.md**，在这些目录或其父目录中寻找 `CLAUDE.md`
+3. **补充有价值的经验**。如果你发现了未来开发者或代理应该知道的内容，可以记录：
+   - 该模块特有的 API 模式或约定
+   - 隐蔽的坑或不明显的要求
+   - 文件之间的依赖关系
+   - 该区域的测试方式
+   - 配置或环境要求
 
-**Examples of good CLAUDE.md additions:**
-- "When modifying X, also update Y to keep them in sync"
-- "This module uses pattern Z for all API calls"
-- "Tests require the dev server running on PORT 3000"
-- "Field names must match the template exactly"
+**适合写进 CLAUDE.md 的内容示例：**
+- “修改 X 时，也要同步更新 Y，才能保持一致”
+- “这个模块的所有 API 调用都遵循模式 Z”
+- “运行测试前需要先启动 3000 端口上的 dev server”
+- “字段名必须与模板完全一致”
 
-**Do NOT add:**
-- Story-specific implementation details
-- Temporary debugging notes
-- Information already in progress.txt
+**不要添加：**
+- 某个 story 专属的实现细节
+- 临时调试笔记
+- 已经写在 `progress.txt` 里的信息
 
-Only update CLAUDE.md if you have **genuinely reusable knowledge** that would help future work in that directory.
+只有当你掌握了 **确实可复用** 且对该目录后续工作有帮助的知识时，才更新 `CLAUDE.md`。
 
-## Quality Requirements
+## 质量要求
 
-- ALL commits must pass your project's quality checks (typecheck, lint, test)
-- Do NOT commit broken code
-- Keep changes focused and minimal
-- Follow existing code patterns
+- 所有提交都必须通过项目的质量检查（typecheck、lint、test）
+- 不要提交有问题的代码
+- 保持改动聚焦且尽量小
+- 遵循现有代码模式
 
-## Browser Testing (If Available)
+## 浏览器测试（如果可用）
 
-For any story that changes UI, verify it works in the browser if you have browser testing tools configured (e.g., via MCP):
+对于任何会修改 UI 的 story，如果你配置了浏览器测试工具（例如通过 MCP），就要在浏览器中验证：
 
-1. Navigate to the relevant page
-2. Verify the UI changes work as expected
-3. Take a screenshot if helpful for the progress log
+1. 打开相关页面
+2. 验证 UI 改动是否符合预期
+3. 如果有助于记录进度，可以截图
 
-If no browser tools are available, note in your progress report that manual browser verification is needed.
+如果没有可用的浏览器工具，请在进度报告中注明需要人工浏览器验证。
 
-## Stop Condition
+## 停止条件
 
-After completing a user story, check if ALL stories have `passes: true`.
+完成一个 user story 后，检查是否所有 story 都已经是 `passes: true`。
 
-If ALL stories are complete and passing, reply with:
+如果所有 story 都已完成并通过，回复：
 <promise>COMPLETE</promise>
 
-If there are still stories with `passes: false`, end your response normally (another iteration will pick up the next story).
+如果仍然有 `passes: false` 的 story，就正常结束本轮响应（下一轮会继续处理下一个 story）。
 
-## Important
+## 重要事项
 
-- Work on ONE story per iteration
-- Commit frequently
-- Keep CI green
-- Read the Codebase Patterns section in progress.txt before starting
+- 每一轮只处理一个 story
+- 频繁提交
+- 保持 CI 绿色
+- 开始前先阅读 `progress.txt` 中的 `Codebase Patterns` 部分

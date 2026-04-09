@@ -7,6 +7,8 @@ set -e
 # Parse arguments
 TOOL="amp"  # Default to amp for backwards compatibility
 MAX_ITERATIONS=10
+CLAUDE_FLAGS=(--dangerously-skip-permissions --print)
+CODEX_FLAGS=(exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --color never --ephemeral)
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -99,15 +101,15 @@ for i in $(seq 1 $MAX_ITERATIONS); do
       echo "Error: claude CLI not found in PATH."
       exit 1
     fi
-    # Claude Code: use --dangerously-skip-permissions for autonomous operation, --print for output
-    OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee /dev/stderr) || true
+    # Claude Code: run directly against the local environment without permission prompts.
+    OUTPUT=$(claude "${CLAUDE_FLAGS[@]}" < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee /dev/stderr) || true
   else
     if ! command -v codex >/dev/null 2>&1; then
       echo "Error: codex CLI not found in PATH."
       exit 1
     fi
-    # Codex: use non-interactive exec mode with ephemeral sessions so each iteration starts fresh.
-    OUTPUT=$(codex exec --full-auto --skip-git-repo-check --color never --ephemeral -C "$PWD" < "$SCRIPT_DIR/CODEX.md" 2>&1 | tee /dev/stderr) || true
+    # Codex: bypass approvals and sandbox so each iteration runs directly in the local environment.
+    OUTPUT=$(codex "${CODEX_FLAGS[@]}" -C "$PWD" < "$SCRIPT_DIR/CODEX.md" 2>&1 | tee /dev/stderr) || true
   fi
   
   # Check for completion signal

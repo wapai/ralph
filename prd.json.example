@@ -1,16 +1,16 @@
 {
-  "project": "MyApp",
+  "project": "我的应用",
   "branchName": "ralph/task-priority",
-  "description": "Task Priority System - Add priority levels to tasks",
+  "description": "任务优先级系统 - 为任务增加优先级等级",
   "userStories": [
     {
       "id": "US-001",
-      "title": "Add priority field to database",
-      "description": "As a developer, I need to store task priority so it persists across sessions.",
+      "title": "为数据库添加优先级字段",
+      "description": "作为开发者，我需要存储任务优先级，以便它能在不同会话间持久保存。",
       "acceptanceCriteria": [
-        "Add priority column to tasks table: 'high' | 'medium' | 'low' (default 'medium')",
-        "Generate and run migration successfully",
-        "Typecheck passes"
+        "在 tasks 表中添加 priority 字段：'high' | 'medium' | 'low'（默认值为 'medium'）",
+        "成功生成并运行 migration",
+        "Typecheck 通过"
       ],
       "priority": 1,
       "passes": false,
@@ -18,13 +18,13 @@
     },
     {
       "id": "US-002",
-      "title": "Display priority indicator on task cards",
-      "description": "As a user, I want to see task priority at a glance.",
+      "title": "在任务卡片上显示优先级标识",
+      "description": "作为用户，我希望一眼就能看到任务优先级。",
       "acceptanceCriteria": [
-        "Each task card shows colored priority badge (red=high, yellow=medium, gray=low)",
-        "Priority visible without hovering or clicking",
-        "Typecheck passes",
-        "Verify in browser using dev-browser skill"
+        "每张任务卡片显示带颜色的优先级徽章（红色=high，黄色=medium，灰色=low）",
+        "无需悬停或点击即可看到优先级",
+        "Typecheck 通过",
+        "使用 dev-browser skill 在浏览器中验证"
       ],
       "priority": 2,
       "passes": false,
@@ -32,14 +32,14 @@
     },
     {
       "id": "US-003",
-      "title": "Add priority selector to task edit",
-      "description": "As a user, I want to change a task's priority when editing it.",
+      "title": "在任务编辑界面中加入优先级选择器",
+      "description": "作为用户，我希望在编辑任务时能够修改它的优先级。",
       "acceptanceCriteria": [
-        "Priority dropdown in task edit modal",
-        "Shows current priority as selected",
-        "Saves immediately on selection change",
-        "Typecheck passes",
-        "Verify in browser using dev-browser skill"
+        "在任务编辑弹窗中提供优先级下拉框",
+        "当前优先级默认处于选中状态",
+        "变更选择后立即保存",
+        "Typecheck 通过",
+        "使用 dev-browser skill 在浏览器中验证"
       ],
       "priority": 3,
       "passes": false,
@@ -47,14 +47,14 @@
     },
     {
       "id": "US-004",
-      "title": "Filter tasks by priority",
-      "description": "As a user, I want to filter the task list to see only high-priority items.",
+      "title": "按优先级筛选任务",
+      "description": "作为用户，我希望可以筛选任务列表，只看高优先级任务。",
       "acceptanceCriteria": [
-        "Filter dropdown with options: All | High | Medium | Low",
-        "Filter persists in URL params",
-        "Empty state message when no tasks match filter",
-        "Typecheck passes",
-        "Verify in browser using dev-browser skill"
+        "筛选下拉框包含：All | High | Medium | Low",
+        "筛选条件持久化到 URL 参数中",
+        "当没有任务匹配筛选条件时显示空状态提示",
+        "Typecheck 通过",
+        "使用 dev-browser skill 在浏览器中验证"
       ],
       "priority": 4,
       "passes": false,
