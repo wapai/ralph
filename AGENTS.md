@@ -1,47 +1,51 @@
-# Ralph Agent Instructions
+# Ralph 代理说明
 
-## Overview
+## 概览
 
-Ralph is an autonomous AI agent loop that runs AI coding tools (Amp or Claude Code) repeatedly until all PRD items are complete. Each iteration is a fresh instance with clean context.
+Ralph 是一个自主 AI 代理循环，会反复运行 AI 编码工具（Amp、Claude Code 或 Codex），直到所有 PRD 条目都完成。每一轮都是一个全新的实例，拥有干净的上下文。
 
-## Commands
+## 命令
 
 ```bash
-# Run the flowchart dev server
+# 启动 flowchart 开发服务器
 cd flowchart && npm run dev
 
-# Build the flowchart
+# 构建 flowchart
 cd flowchart && npm run build
 
-# Run Ralph with Amp (default)
+# 使用 Amp 运行 Ralph（默认）
 ./ralph.sh [max_iterations]
 
-# Run Ralph with Claude Code
+# 使用 Claude Code 运行 Ralph
 ./ralph.sh --tool claude [max_iterations]
+
+# 使用 Codex 运行 Ralph
+./ralph.sh --tool codex [max_iterations]
 ```
 
-## Key Files
+## 关键文件
 
-- `ralph.sh` - The bash loop that spawns fresh AI instances (supports `--tool amp` or `--tool claude`)
-- `prompt.md` - Instructions given to each AMP instance
--  `CLAUDE.md` - Instructions given to each Claude Code instance
-- `prd.json.example` - Example PRD format
-- `flowchart/` - Interactive React Flow diagram explaining how Ralph works
+- `ralph.sh` - 启动全新 AI 实例的 bash 循环（支持 `--tool amp`、`--tool claude` 或 `--tool codex`）
+- `prompt.md` - 提供给每个 Amp 实例的说明
+- `CLAUDE.md` - 提供给每个 Claude Code 实例的说明
+- `CODEX.md` - 提供给每个 Codex 实例的说明
+- `prd.json.example` - PRD 格式示例
+- `flowchart/` - 用于说明 Ralph 工作方式的交互式 React Flow 图
 
-## Flowchart
+## 流程图
 
-The `flowchart/` directory contains an interactive visualization built with React Flow. It's designed for presentations - click through to reveal each step with animations.
+`flowchart/` 目录中包含一个基于 React Flow 的交互式可视化。它适合用于演示，你可以逐步点击查看每个步骤及其动画。
 
-To run locally:
+本地运行方式：
 ```bash
 cd flowchart
 npm install
 npm run dev
 ```
 
-## Patterns
+## 模式
 
-- Each iteration spawns a fresh AI instance (Amp or Claude Code) with clean context
-- Memory persists via git history, `progress.txt`, and `prd.json`
-- Stories should be small enough to complete in one context window
-- Always update AGENTS.md with discovered patterns for future iterations
+- 每一轮都会启动一个拥有干净上下文的全新 AI 实例（Amp、Claude Code 或 Codex）
+- 记忆通过 git 历史、`progress.txt` 和 `prd.json` 持续保留
+- Story 必须足够小，能在一个上下文窗口内完成
+- 发现可复用模式后，要始终更新 `AGENTS.md`，供后续迭代使用
